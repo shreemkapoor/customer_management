@@ -18,10 +18,12 @@ public class EmployeeMapper implements RowMapper<Employee> {
 		mapUser.setUserName(resultSet.getString("emp_username"));
 		mapUser.setUserPassword(resultSet.getString("emp_pwd"));
 		mapUser.setEmailId(resultSet.getString("emp_email_id"));
+		System.out.println(resultSet.getString("emp_email_id"));
 		mapUser.setActivatedOn(resultSet.getDate("activated_on"));
 		mapUser.setFirstName(resultSet.getString("firstname"));
 		mapUser.setLastName(resultSet.getString("lastname"));
 		mapUser.setdDOB(resultSet.getDate("dob"));
+		mapUser.setDOB(resultSet.getString("dob"));
 		mapUser.setMobileNumber(resultSet.getString("emp_mobile_no"));
 		mapUser.setGender(resultSet.getString("emp_gender"));
 		mapUser.setAddress(resultSet.getString("address"));

@@ -1,12 +1,17 @@
 package ems.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import ems.entity.AccessUrl;
@@ -44,7 +49,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		
 		
 		Employee databaseUser=new Employee();
-		System.out.println(name);
 		try {
 			databaseUser= jdbcTemplate.queryForObject("select * from mst_emp where emp_email_id=?",
 						new Object[] {name},new EmployeeMapper());
@@ -148,4 +152,22 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		genderList= jdbcTemplate.query("select gender_id,gender_desc from mst_gender", new GenderMapper());
 		return genderList;
 	}
-}
+
+	@Override
+	public List<Employee> getEmployees() {
+		return jdbcTemplate.query("select * from mst_emp",new EmployeeMapper()/*new ResultSetExtractor<List<Employee>>(){  
+  			@Override
+	public List<Employee> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		 List<Employee> list=new ArrayList<Employee>();  
+	        while(rs.next()){  
+	        	Employee theEmployee=new Employee();  
+	        	theEmployee.setFirstName(rs.getString("firstname")); 
+	        	theEmployee.setLastName(rs.getString("lastname"));  
+	        	theEmployee.setDesignation(rs.getString("emp_designation"));
+	        	theEmployee.setEmailId(rs.getString("emp_email_id"));
+	        list.add(theEmployee);  
+	        }  
+	        return list; 
+	}
+  			}*/);	}  
+	}

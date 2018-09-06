@@ -30,5 +30,7 @@ public interface EmployeeService {
 	public List<UserRole> getUserRoleList();
 
 	public List<Gender> getGenderList();
+
+	public List<Employee> getEmployees();
 	
 }
