@@ -8,40 +8,44 @@
 </head>
 
 <body>
-	<h2>CRM - Customer Relationship Manager</h2>
-	<hr>
+<%@include file="header.jsp" %>
+<%@include file="side-layout.jsp" %>
+<div class="content-wrapper">
+<div class="col-md-10 col-md-offset-1">
+
+	
+	<div class="employee-list">
 	<!--  add our html table here -->
-<div class="panel panel-info container">
+<div class="panel panel-primary">
 
 				<div class="panel-heading">
-					<div class="panel-title">Customer list</div>
+					<div class="panel-title">Employee list</div>
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
-	<table class="table">
+	<table class="table table-bordered table-responsive">
 	<thead>
 		<tr>
 			<th>First Name</th>
 			<th>Last Name</th>
-			<th>Email</th>
-			<th>Action</th>
+			<th>Designation</th>
+			<th colspan="2" style="text-align:center;">Action</th>
 
 		</tr>
 </thead>
-		<!-- loop over and print our customers -->
+		<!-- loop over and print our employees -->
 		<tbody id="ctbody">
-				<c:forEach var="tempCustomer" items="${customers}">
+				<c:forEach var="tempEmployee" items="${employees}">
 			<tr>
-				<td>${tempCustomer.firstName}</td>
-				<td>${tempCustomer.lastName}</td>
-				<td>${tempCustomer.email}</td>
-				<td><form method="post" action="showFormForUpdate" >
-						<input type="submit" value="update"  class="btn btn-primary" />
-						<input type="hidden" value="${csrf_token}" name="token" />
-						<input type="hidden" value="${tempCustomer.id}" name="id" />
+				<td>${tempEmployee.firstName}</td>
+				<td>${tempEmployee.lastName}</td>
+				<td>${tempEmployee.designation}</td>
+				<td><form  action="updateEmployee" >
+						<input type="submit" value="update" />
+						<input type="hidden" value="${tempEmployee.emailId}" name="emailId" />
 					</form></td><td>
 					
-						<button  class="btn btn-primary" onclick="deleteUser(${tempCustomer.id});">Delete</button>
+						<button  onclick="deleteUser(${tempEmployee.emailId});">Delete</button>
 							
 							
 					</td>
@@ -52,9 +56,10 @@
 	</table>
 </div>
 </div>
-	<button onclick="window.location.href='${pageContext.request.contextPath}/showFormForAdd'"  class="btn btn-success">Add a
-		new Customer</button>
-		<br><br>
-		<button onclick="window.location.href='logout'" class="btn btn-danger">LOGOUT</button>
+</div>
+</div>
+</div>
+<%@include file="footer.jsp" %>
 </body>
+
 </html>

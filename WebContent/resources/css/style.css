@@ -16,3 +16,12 @@ a{text-decoration: none;}
 .backToLogin a{text-decoration: underline;}
 .backToLogin a:hover{color:#f00;}
 #employee .form-inline .form-control.proInput{width: 60% !important;}
+
+.main-footer{
+	position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+.employee-list{margin-top: 50px;}
+.content-wrapper{background: none;}

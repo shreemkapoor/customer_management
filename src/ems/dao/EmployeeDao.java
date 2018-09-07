@@ -33,4 +33,6 @@ public interface EmployeeDao {
 	public List<Gender> getGenderList();
 
 	public List<Employee> getEmployees();
+
+	public int updateEmployee(Employee thEmployee);
 }

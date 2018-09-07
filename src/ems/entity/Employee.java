@@ -25,10 +25,7 @@ public class Employee {
 	private String userId;
 	private Date activatedOn;
 
-	@Email(message = "Email not valid")
-	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Email id not valid")
-	@NotEmpty
-	@Length(max = 40, message = "Email id should be less than 40 characters")
+	
 	private String emailId;
 
 	@NotEmpty
