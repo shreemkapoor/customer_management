@@ -1,12 +1,17 @@
 package ems.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import ems.entity.AccessUrl;
@@ -44,7 +49,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		
 		
 		Employee databaseUser=new Employee();
-		System.out.println(name);
 		try {
 			databaseUser= jdbcTemplate.queryForObject("select * from mst_emp where emp_email_id=?",
 						new Object[] {name},new EmployeeMapper());
@@ -123,21 +127,36 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public List<UserType> getUserTypeList() {
 		List<UserType> stateList = new ArrayList<UserType>();
+		try {
 		stateList= jdbcTemplate.query("select role_id,type_desc from mst_type", new UserTypeMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return stateList;
 	}
 
 	@Override
 	public List<SubUrl> getsubUrl(int urlId, int userRole) {
 		List<SubUrl> url = new ArrayList<SubUrl>();
+		try {
 		url= jdbcTemplate.query("select * from mst_sub_url where url_id=? and role_id=?",new Object[] {urlId,userRole}, new SubUrlMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return url;
 	}
 
 	@Override
 	public List<UserRole> getUserRoleList() {
 		List<UserRole> stateList = new ArrayList<UserRole>();
+		try {
 		stateList= jdbcTemplate.query("select role_id,role_desc from mst_role", new UserRoleMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return stateList;
 		
 	}
@@ -145,7 +164,51 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public List<Gender> getGenderList() {
 		List<Gender> genderList = new ArrayList<Gender>();
+		try {
 		genderList= jdbcTemplate.query("select gender_id,gender_desc from mst_gender", new GenderMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return genderList;
 	}
-}
+
+	@Override
+	public List<Employee> getEmployees() {
+		return jdbcTemplate.query("select * from mst_emp",new EmployeeMapper()/*new ResultSetExtractor<List<Employee>>(){  
+  			@Override
+	public List<Employee> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		 List<Employee> list=new ArrayList<Employee>();  
+	        while(rs.next()){  
+	        	Employee theEmployee=new Employee();  
+	        	theEmployee.setFirstName(rs.getString("firstname")); 
+	        	theEmployee.setLastName(rs.getString("lastname"));  
+	        	theEmployee.setDesignation(rs.getString("emp_designation"));
+	        	theEmployee.setEmailId(rs.getString("emp_email_id"));
+	        list.add(theEmployee);  
+	        }  
+	        return list; 
+	}
+  			}*/);	}
+
+	@Override
+	public int updateEmployee(Employee thEmployee) {
+		int i=0;
+		try {
+		i=jdbcTemplate.update("update mst_emp set firstname=?, lastname=?,emp_designation=?,"
+								 + "emp_mobile_no=?,emp_gender=?,state_code=?,district_code=?,"
+								 + "emp_role=?,emp_type=?,dob=?,address=?,city=?,postal_code=?,profile_photo=? "
+								 + "where emp_email_id=?"
+									, new Object[] {thEmployee.getFirstName(),thEmployee.getLastName(),
+									thEmployee.getDesignation(),thEmployee.getMobileNumber(),
+									thEmployee.getGender(),thEmployee.getStateCode(),thEmployee.getDistrictCode(),
+									thEmployee.getUserRole(),thEmployee.getUserType(),thEmployee.getdDOB(),
+									thEmployee.getAddress(),thEmployee.getCity(),thEmployee.getPostalCode(),
+									thEmployee.getFile1(),thEmployee.getEmailId()});
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(">>>>>>>"+i);
+		return i;
+	}  
+	}

@@ -98,10 +98,49 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		return "register";
 	}
 	
+	@RequestMapping(value="/updateEmployee", method=RequestMethod.GET)
+	public String updateEmployee(@RequestParam("emailId") String emailId,Model model,HttpSession session,HttpServletRequest request) {
+		Employee theEmployee = employeeService.getUser(emailId);
+		model.addAttribute("employee", theEmployee);
+		System.out.println(theEmployee.getEmailId()+" bsdsdbb");
+		List<State> statelist=employeeService.getEmpStateList();
+		model.addAttribute("allstate", statelist);
+		List<UserType> typeList=employeeService.getUserTypeList();
+		model.addAttribute("alltypes", typeList);
+		List<UserRole> roleList=employeeService.getUserRoleList();
+		model.addAttribute("allroles", roleList);
+		List<Gender> genderList=employeeService.getGenderList();
+		model.addAttribute("allgender", genderList);
+	//	employeeService.updateEmployee(theEmployee);
+		return "updateUser";
+	}
+	
+	@RequestMapping(value="/updateEmployee", method=RequestMethod.POST)
+	public String updateEmployeeSave( @ModelAttribute("employee") Employee theEmployee, BindingResult bindingResult,@RequestParam(value="file", required=false) MultipartFile mfile, Model model,HttpSession session) {
+		if(bindingResult.hasErrors()) {
+			System.out.println("tttttt "+bindingResult.getFieldErrors());
+			model.addAttribute("errors", bindingResult.getFieldErrors());
+			List<State> statelist=employeeService.getEmpStateList();
+			model.addAttribute("allstate", statelist);
+			List<UserType> typeList=employeeService.getUserTypeList();
+			model.addAttribute("alltypes", typeList);
+			List<UserRole> roleList=employeeService.getUserRoleList();
+			model.addAttribute("allroles", roleList);
+			List<Gender> genderList=employeeService.getGenderList();
+			model.addAttribute("allgender", genderList);
+			return "updateUser";
+		}
+	int i=	employeeService.updateEmployee(theEmployee);
+	System.out.println(theEmployee.getEmailId()+theEmployee.getDesignation());
+		if(i>0) {
+			return "redirect:/listEmployees";
+		}
+		return "error";
+	}
 	@RequestMapping(value="/createUser", method=RequestMethod.POST)
 	public String createNewUser(@Valid @ModelAttribute("employee") Employee theEmployee, BindingResult bindingResult,@RequestParam(value="file", required=false) MultipartFile mfile, Model model,HttpSession session) throws IOException {
 		if(bindingResult.hasErrors()) {
-			System.out.println("gzbhc");
+			System.out.println("gzbhc   "+bindingResult.getFieldErrors());
 			model.addAttribute("errors", bindingResult.getFieldErrors());
 			return "register";
 		}
@@ -150,4 +189,14 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		state.setStateCode(stateCode);
 		return employeeService.getEmpDistrictList(state);				
 }
+	
+	@RequestMapping("/listEmployees")
+	public String listEmployees(Model model, HttpSession session) {
+	//	Employee emp=(Employee)session.getAttribute("empsession");
+		List<Employee> emplist = employeeService.getEmployees();
+		System.out.println(emplist.size());
+		model.addAttribute("employees", emplist);
+		return "employeeList";
+	}
 }
+

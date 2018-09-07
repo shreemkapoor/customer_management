@@ -69,4 +69,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		return employeeDao.getGenderList();
 	}
+
+	@Override
+	public List<Employee> getEmployees() {
+		return employeeDao.getEmployees();
+	}
+
+	@Override
+	public int updateEmployee(Employee thEmployee) {
+		return employeeDao.updateEmployee(thEmployee);
+	}
+
+	
 }

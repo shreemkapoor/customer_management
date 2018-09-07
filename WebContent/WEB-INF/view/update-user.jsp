@@ -14,7 +14,6 @@
 <body>
 <%@include file="header.jsp" %>
 <%@include file="side-layout.jsp" %>
-<%@include file="footer.jsp" %>
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -109,8 +108,9 @@ function getEmpDistrict() {
 				
 				<div class="panel-heading"><h3 class="panel-title">Register</h3></div>
 					<div class="panel-body">
-						<form:form  modelAttribute="employee" method="POST" id="empForm" enctype="multipart/form-data" action="createUser">
-						
+						<form:form  modelAttribute="employee" method="POST" id="empForm" enctype="multipart/form-data" 
+						 action="updateEmployee">
+											
 						<div class="form-inline">
 						 <div class="col-md-6">
 						  <div class="form-group">
@@ -132,7 +132,7 @@ function getEmpDistrict() {
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">Email:</label>
-						    <form:input class="proInput form-control" path="emailId" />
+						    <form:input class="proInput form-control" path="emailId" readonly="true" />
 						      <form:errors cssStyle="color:red;"  path="emailId"  ></form:errors>
 						    
 						  </div>

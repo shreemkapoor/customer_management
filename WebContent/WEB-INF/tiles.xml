@@ -21,8 +21,10 @@
 		<put-attribute name="" value="/WEB-INF/view/dashboard.jsp" />
 	</definition>
   <definition name="register" template="/WEB-INF/view/create-user.jsp"></definition>
+  <definition name="updateUser" template="/WEB-INF/view/update-user.jsp"></definition>
   <definition name="homepage" template="/WEB-INF/view/homepage.jsp"></definition>
   <definition name="error" template="/WEB-INF/view/error.jsp"></definition>
+	<definition name="employeeList" template="/WEB-INF/view/employee-list.jsp"></definition>
 	
 
 </tiles-definitions>
