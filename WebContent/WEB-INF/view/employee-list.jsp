@@ -10,6 +10,34 @@
 <body>
 <%@include file="header.jsp" %>
 <%@include file="side-layout.jsp" %>
+
+<script type="text/javascript">
+function deleteUser(emailId){
+	
+	$.ajax({
+		url:"delete",
+		type:"post",
+		data:{"emailId":emailId},
+		success:function(data){
+			
+			if(data==null){
+				alert("fail");
+			}else{ 	
+	 var html="";
+			for (var i= 0; i< data.length; i++) {
+				html+="<tr><td>"+data[i].firstName+"</td><td>"+data[i].lastName+"</td><td>"+data[i].designation+"</td><td><form  action='updateEmployee'><input type='submit' value='update' /><input type='hidden' value="+data[i].emailId+" name='emailId' /></form></td><td><button onclick='deleteUser("+data[i].emailId+");'>Delete</button></td></tr>";
+			}
+			$("#ctbody").html(""); 
+		$("#ctbody").html(html); 
+			}
+			
+		},error:function(e){
+		
+		}
+	});
+}
+</script>
+
 <div class="content-wrapper">
 <div class="col-md-10 col-md-offset-1">
 
@@ -45,7 +73,7 @@
 						<input type="hidden" value="${tempEmployee.emailId}" name="emailId" />
 					</form></td><td>
 					
-						<button  onclick="deleteUser(${tempEmployee.emailId});">Delete</button>
+						<button  onclick="deleteUser('${tempEmployee.emailId}' );">Delete</button>
 							
 							
 					</td>
@@ -61,5 +89,4 @@
 </div>
 <%@include file="footer.jsp" %>
 </body>
-
 </html>

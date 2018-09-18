@@ -25,7 +25,9 @@ public class Employee {
 	private String userId;
 	private Date activatedOn;
 
-	
+	@Email(message="Invalid Email")
+	//@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	@Length(max = 40,message="Email id should be less than 40 characters")
 	private String emailId;
 
 	@NotEmpty
@@ -36,55 +38,44 @@ public class Employee {
 	@Size(min = 1, max = 50, message = "Should be atleast 4 characters")
 	public String lastName;
 
-	/*
-	 * @Pattern(regexp=
-	 * "^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$")
-	 */
-	/* @DateTimeFormat(pattern = "dd/mm/yyyy") */
+	
+/*	  @Pattern(regexp= "^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$")
+*/	 
+	 @DateTimeFormat(pattern = "dd/mm/yyyy")
 	public Date dDOB;
 	public String DOB;
-	/*
-	 * @Length( max = 15,message="Contact number should be less than 15 digits")
-	 * 
-	 * @Pattern(regexp="^[0-9]*$",message="Contact number not valid")
-	 */
+	
+	@NotNull
+	@Length( max = 15,message="Contact number should be less than 15 digits")
+	@Pattern(regexp="^[0-9]*$",message="Contact number not valid")
 	public String mobileNumber;
-	/*
-	 * @NotNull(message="Please select gender")
-	 */
+	
+	@NotNull(message="Please select gender")
 	public String gender;
 
-	/*
-	 * @Pattern(regexp="^[/0-9a-zA-Z-.&@',:\\\\()\\s\\/]*$",
-	 * message="Address not valid")
-	 * 
-	 * @Length( max = 200,message="Address should be less than 200 character")
-	 */
+
+	@Pattern(regexp="^[/0-9a-zA-Z-.&@',:\\\\()\\s\\/]*$",message="Address not valid")
+	@Length( max = 200,message="Address should be less than 200 character")
 	public String address;
 
-	/*
-	 * @Pattern(regexp="^[/0-9a-zA-Z-.&@',:\\\\()\\s\\/]*$",
-	 * message="Address not valid")
-	 * 
-	 * @Length( max = 50,message="Address should be less than 200 character")
-	 */
+	
+	@Pattern(regexp="^[/0-9a-zA-Z-.&@',:\\\\()\\s\\/]*$",message="Address not valid")
+	@Length( max = 50,message="Address should be less than 200 character") 
 	public String city;
 
 	@NotNull(message = "please select state")
 	@Digits(integer = 6, fraction = 0, message = "Please select valid state")
 	public int postalCode;
-	/* @NotNull(message = "please select district") */
+	@NotNull(message = "please select district")
 	public String stateCodedesc;
 	public Integer stateCode;
-	/* @NotNull(message = "please select district") */
+	@NotNull(message = "please select district")
 	public String districtCodeDesc;
 	public Integer districtCode;
 
-	/*
-	 * @NotEmpty
-	 * 
-	 * @Size(min=4,max=50,message="Should be atleast 4 characters")
-	 */
+
+	@NotEmpty
+	@Size(min=4,max=50,message="Should be atleast 4 characters")
 	public String designation;
 
 	private Integer userType;
@@ -99,7 +90,7 @@ public class Employee {
 	public Date deactivatedOn;
 	public String deactivatedBy;
 	public String deactivatedClientIp;
-
+	@NotNull(message = "please select role")
 	public Integer userRole;
 	public String userRoledesc;
 	public Date passwordUpdatedOn;

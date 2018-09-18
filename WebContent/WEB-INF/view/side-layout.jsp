@@ -11,7 +11,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="resources/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="resources/img/PicsArt_05-12-12.03.34.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>${empsession.userName}</p>

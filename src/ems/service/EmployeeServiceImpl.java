@@ -80,5 +80,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.updateEmployee(thEmployee);
 	}
 
+	@Override
+	public int deleteEmployee(String emailId) {
+		return employeeDao.deleteEmployee(emailId);
+	}
+
+	@Override
+	public List<AccessUrl> getUrl() {
+		// TODO Auto-generated method stub
+		return employeeDao.getUrl();
+	}
+
+	@Override
+	public List<SubUrl> getsubUrlByUrl(int parseInt) {
+		// TODO Auto-generated method stub
+		return employeeDao.getsubUrlByUrl(parseInt);
+	}
+
+	@Override
+	public int createRole(UserRole role) {
+		return employeeDao.createRole(role);
+	}
+
 	
 }

@@ -35,4 +35,12 @@ public interface EmployeeDao {
 	public List<Employee> getEmployees();
 
 	public int updateEmployee(Employee thEmployee);
+
+	public int deleteEmployee(String emailId);
+
+	public List<AccessUrl> getUrl();
+
+	public List<SubUrl> getsubUrlByUrl(int parseInt);
+
+	public int createRole(UserRole role);
 }

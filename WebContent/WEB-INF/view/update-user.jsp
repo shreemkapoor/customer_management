@@ -14,6 +14,11 @@
 <body>
 <%@include file="header.jsp" %>
 <%@include file="side-layout.jsp" %>
+ <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
+  <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
+  <script src="<c:url value='resources/js/CreateUserValidation.js'/>"></script>
+
+
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -108,15 +113,15 @@ function getEmpDistrict() {
 				
 				<div class="panel-heading"><h3 class="panel-title">Register</h3></div>
 					<div class="panel-body">
-						<form:form  modelAttribute="employee" method="POST" id="empForm" enctype="multipart/form-data" 
-						 action="updateEmployee">
-											
+						<form:form  modelAttribute="employee" method="POST" id="empForm" enctype="multipart/form-data" action="updateEmployee">
+						
 						<div class="form-inline">
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">First name:</label>
 						    <form:input class="proInput form-control" path="firstName" required="required" />
 						    <form:errors cssStyle="color:red;"  path="firstName"  ></form:errors>
+						    <div class="FeRror"></div>
 						  </div>
 						 </div>  
 						 
@@ -124,6 +129,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Last name:</label>
 						    <form:input class="proInput form-control" path="lastName" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="lastName"  ></form:errors>
 						  </div>
 						 </div> 
 						</div>
@@ -133,6 +140,7 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Email:</label>
 						    <form:input class="proInput form-control" path="emailId" readonly="true" />
+						    <div class="FeRror"></div>
 						      <form:errors cssStyle="color:red;"  path="emailId"  ></form:errors>
 						    
 						  </div>
@@ -142,6 +150,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Mobile Number:</label>
 						    <form:input class="proInput form-control" path="mobileNumber" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="mobileNumber"  ></form:errors>
 						  </div>
 						 </div> 
 						</div>
@@ -152,6 +162,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Date of birth:</label>
 						    <form:input class="proInput form-control" path="DOB" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="DOB"  ></form:errors>
 						  </div>
 						 </div>  
 						 
@@ -161,6 +173,8 @@ function getEmpDistrict() {
 					    <form:select class="proInput form-control" path="gender" id="genderDesc_id" >
 										<form:option value="" label="--Select Gender --" />
 										<form:options items="${allgender}" itemValue="genderId" itemLabel="genderDesc" />
+										<div class="FeRror"></div>
+										<form:errors cssStyle="color:red;"  path="gender"  ></form:errors>
 								</form:select>	
 						  </div>
 						 </div>  
@@ -170,6 +184,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">City:</label>
 						    <form:input class="proInput form-control" path="city" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="city"  ></form:errors>
 						  </div>
 						 </div>  
 						 
@@ -177,6 +193,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Address:</label>
 						    <form:textarea class="proInput form-control" path="address"  />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="address"  ></form:errors>
 						  </div>
 						 </div> 
 						</div>
@@ -188,6 +206,8 @@ function getEmpDistrict() {
 						    <form:select class="proInput form-control" path="stateCodedesc" id="stateCode" onchange="getEmpDistrict();" >
 										<form:option value="" label="--Select State --" />
 										<form:options items="${allstate}" itemValue="stateCode" itemLabel="stateDesc" />
+										<div class="FeRror"></div>
+										<form:errors cssStyle="color:red;"  path="stateCodedesc"  ></form:errors>
 								</form:select>	
 						  </div>
 						 </div>  
@@ -197,6 +217,8 @@ function getEmpDistrict() {
 						    <label class="proLabel">District:</label>
 						    <form:select class="proInput form-control" path="districtCodeDesc" id="districtCode_id" >
 									<form:option value="" label="--Select District --" />
+									<div class="FeRror"></div>
+									<form:errors cssStyle="color:red;"  path="districtCodeDesc"  ></form:errors>
 										</form:select>		
 						  </div>
 						 </div> 
@@ -207,6 +229,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Postal Code:</label>
 						    <form:input class="proInput form-control" path="postalCode" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="postalCode"  ></form:errors>
 						  </div>
 						 </div>  
 						 
@@ -214,6 +238,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Designation:</label>
 						    <form:input class="proInput form-control" path="designation" />
+						    <div class="FeRror"></div>
+						    <form:errors cssStyle="color:red;"  path="designation"  ></form:errors>
 						  </div>
 						 </div>  
 						 </div>
@@ -225,6 +251,8 @@ function getEmpDistrict() {
 					    <form:select class="proInput form-control" path="userType" id="typeDesc_id" >
 										<form:option value="" label="--Select Type --" />
 										<form:options items="${alltypes}" itemValue="roleId" itemLabel="typeDesc" />
+										<div class="FeRror"></div>
+										<form:errors cssStyle="color:red;"  path="userType"  ></form:errors>
 								</form:select>	
 						  </div>
 						 </div>  
@@ -233,6 +261,8 @@ function getEmpDistrict() {
 						  <div class="form-group">
 						    <label class="proLabel">Upload:</label>
 						   <form:input class="proInput form-control" type="file" path="file" id="uploadfile" />
+						   <div class="FeRror"></div>
+						   <form:errors cssStyle="color:red;"  path="file"  ></form:errors>
 						  </div>
 						 </div> 
 						</div>
@@ -244,6 +274,8 @@ function getEmpDistrict() {
 					    <form:select class="proInput form-control" path="userRole" id="role_id" >
 										<form:option value="" label="--Select Role --" />
 										<form:options items="${allroles}" itemValue="roleId" itemLabel="roleDesc" />
+										<div class="FeRror"></div>
+										<form:errors cssStyle="color:red;"  path="userRole"  ></form:errors>
 								</form:select>	
 						  </div>
 						 </div>  </div>
@@ -264,7 +296,9 @@ function getEmpDistrict() {
 </div>
 </div>
 </section>
+<%@include file="footer.jsp" %>
 </div>
+
 </body>
 
 </html>

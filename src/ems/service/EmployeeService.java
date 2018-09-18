@@ -35,5 +35,14 @@ public interface EmployeeService {
 
 	public int updateEmployee(Employee thEmployee);
 
+	public int deleteEmployee(String emailId);
+
+	public List<AccessUrl> getUrl();
+	
+
+	public List<SubUrl> getsubUrlByUrl(int getsubUrlByUrl);
+
+	public int createRole(UserRole role);
+
 	
 }

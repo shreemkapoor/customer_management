@@ -17,10 +17,7 @@
   <script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>  
  
 <!-- include js -->
-		 <script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="https://adminlte.io/themes/AdminLTE/dist/js/pages/dashboard2.js"></script>
-				 <script src="<c:url value='/resources/js/adminlte.min.js'/>"></script>
+		  <script src="<c:url value='/resources/js/adminlte.min.js'/>"></script>
 				<script src="<c:url value='/resources/js/demo.js'/>"></script> 
 </head>
 
@@ -29,9 +26,9 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>WET</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg">Web<b>Employee</b>Tracker</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

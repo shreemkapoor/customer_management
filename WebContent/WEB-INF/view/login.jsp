@@ -4,14 +4,16 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
 <head>
-	<title>Custom Login Page</title>
-		
+	<title>Web Employee Tracker</title>
 		
 	</head>
 
 <body>
 
  <%@include file="header.jsp" %> 
+<script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
+  <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
+  <script src="<c:url value='resources/js/loginValidation.js'/>"></script>
 
 <div class="container">
 <div class="col-md-6 col-md-offset-3">
@@ -24,7 +26,7 @@
   <div class="panel-body">
 
 
-	<form:form action="checkUser"  modelAttribute="formUser" >
+	<form:form id="loginForm" action="checkUser"  modelAttribute="formUser" >
 	
 	<div class="form-group">
 	  <label class="proLabel">User name:</label>
@@ -66,10 +68,6 @@
 </div>
 </div>
 
-<!-- private MultipartFile profilePhoto;
-private byte[] profilePic;
-(11:50:44 AM) for save in database profilePhoto
-(11:50:58 AM) getting from database profilePic -->
 </body>
 
 </html>

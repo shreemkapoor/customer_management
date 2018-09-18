@@ -124,6 +124,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return accessUrl;
 	}
 
+	
+	
 	@Override
 	public List<UserType> getUserTypeList() {
 		List<UserType> stateList = new ArrayList<UserType>();
@@ -147,12 +149,20 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		return url;
 	}
+	
+	@Override
+	public List<SubUrl> getsubUrlByUrl(int parseInt) {
+		List<SubUrl> subUrlList= new ArrayList<>();
+		subUrlList= jdbcTemplate.query("select * from mst_sub_url where url_id=?",new Object[] {parseInt},new SubUrlMapper());
+		return subUrlList;
+	}
+
 
 	@Override
 	public List<UserRole> getUserRoleList() {
 		List<UserRole> stateList = new ArrayList<UserRole>();
 		try {
-		stateList= jdbcTemplate.query("select role_id,role_desc from mst_role", new UserRoleMapper());
+		stateList= jdbcTemplate.query("select role_id,role_desc from mst_role order by role_id", new UserRoleMapper());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -210,5 +220,44 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		System.out.println(">>>>>>>"+i);
 		return i;
-	}  
+	}
+
+	@Override
+	public int deleteEmployee(String emailId) {
+		int i=0;
+		try {
+			i=jdbcTemplate.update("delete from mst_emp where emp_email_id=?", new Object[] {emailId});
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public List<AccessUrl> getUrl() {
+		List<AccessUrl> accessUrl = new ArrayList<>();
+		try {
+		accessUrl=jdbcTemplate.query("select * from mst_url_access ",new AccessUrlMapper());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return accessUrl;
+	}
+
+	@Override
+	public int createRole(UserRole role) {
+		try {
+		int i = jdbcTemplate.update("insert into mst_role(role_desc,active_status,entered_by,entered_on,client_ip)"
+				+ "values (?,?,?,now(),?)" , new Object[] {role.getRoleDesc(),role.getActiveStatus(),role.getEnteredBy(),
+						role.getClientIp()});
+		return i;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
+	 
 	}
