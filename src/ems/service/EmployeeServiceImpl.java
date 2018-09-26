@@ -11,6 +11,7 @@ import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.Ministry;
 import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
@@ -140,5 +141,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.professionalDetails(profdet);
 	}
 
+	
+	@Override
+	public int saveMinistry(Ministry mini) {
+		// TODO Auto-generated method stub
+		return employeeDao.saveMinistry(mini);
+	}
+
+	@Override
+	public List<Ministry> getMinistry() {
+		// TODO Auto-generated method stub
+		return employeeDao.getMinistry();
+	}
 	
 }

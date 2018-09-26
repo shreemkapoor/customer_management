@@ -7,6 +7,7 @@ import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.Ministry;
 import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
@@ -59,4 +60,8 @@ public interface EmployeeDao {
 	public int deleteDesignation(String designationId);
 
 	public int professionalDetails(Employee profdet);
+	
+
+	public int saveMinistry(Ministry mini);
+	public List<Ministry> getMinistry();
 }

@@ -21,6 +21,7 @@ import ems.entity.District;
 import ems.entity.Education;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.Ministry;
 import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
@@ -31,6 +32,7 @@ import ems.mapper.DesignationMapper;
 import ems.mapper.DistrictMapper;
 import ems.mapper.EmployeeMapper;
 import ems.mapper.GenderMapper;
+import ems.mapper.MinistryMapper;
 import ems.mapper.StateMapper;
 import ems.mapper.SubUrlMapper;
 import ems.mapper.UserRoleMapper;
@@ -357,4 +359,28 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 	return 0;
 	}
+	@Override
+	public int saveMinistry(Ministry mini) {
+		try {
+			int i = jdbcTemplate.update("insert into mst_ministry(ministry_dsc,active_status,entered_by,entered_on,client_ip)"
+					+ "values (?,?,?,now(),?)" , new Object[] {mini.getMinistryName(),mini.getActiveStatus(),mini.getEnteredBy(),mini.getClientIp()});
+			return i;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
+	}
+
+	@Override
+	public List<Ministry> getMinistry() {
+		List<Ministry> accessUrl = new ArrayList<>();
+		try {
+		accessUrl=jdbcTemplate.query("select * from mst_ministry ",new MinistryMapper());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return accessUrl;
+	}
+
 }
