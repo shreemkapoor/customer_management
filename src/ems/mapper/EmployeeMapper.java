@@ -24,7 +24,14 @@ public class EmployeeMapper implements RowMapper<Employee> {
 		mapUser.setdDOB(resultSet.getDate("dob"));
 		mapUser.setDOB(resultSet.getString("dob"));
 		mapUser.setMobileNumber(resultSet.getString("emp_mobile_no"));
-		mapUser.setGender(resultSet.getString("emp_gender"));
+		if(resultSet.getString("emp_gender").equals("M")) {
+		mapUser.setGender("Male");}
+		else if(resultSet.getString("emp_gender").equals("F")) {
+			mapUser.setGender("Female");
+		}
+		else{
+			mapUser.setGender("Neutral");
+		}
 		mapUser.setAddress(resultSet.getString("address"));
 		mapUser.setCity(resultSet.getString("city"));
 		mapUser.setPostalCode(resultSet.getInt("postal_code"));

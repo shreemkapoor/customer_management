@@ -8,12 +8,10 @@
 <head>
 	<title>Save Customer</title>
   <script src="<c:url value='/resources/js/scripts/userReg.js'/>"></script>
-
  </head>
 
 <body>
-<%@include file="header.jsp" %>
-<%@include file="side-layout.jsp" %>
+ 
  <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
   <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
   <script src="<c:url value='resources/js/CreateUserValidation.js'/>"></script>
@@ -85,8 +83,7 @@ function getEmpDistrict() {
 		
 			for (var i = 0; i < len; i++) {
 				 
-				html += '<option value="' + data[i].districtCode + '" label="'
-				+ data[i].districtDesc + '"></option>';
+				html += '<option value="' + data[i].districtCode + '" label="'+ data[i].districtDesc +'">'+ data[i].districtDesc+'</option>';
 			}
 		
 			$('#districtCode_id').html("");
@@ -161,7 +158,7 @@ function getEmpDistrict() {
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">Date of birth:</label>
-						    <form:input class="proInput form-control" path="DOB" />
+						    <form:input type="date" class="proInput form-control" path="DOB" />
 						    <div class="FeRror"></div>
 						    <form:errors cssStyle="color:red;"  path="DOB"  ></form:errors>
 						  </div>
@@ -236,10 +233,13 @@ function getEmpDistrict() {
 						 
 						 <div class="col-md-6">
 						  <div class="form-group">
-						    <label class="proLabel">Designation:</label>
-						    <form:input class="proInput form-control" path="designation" />
-						    <div class="FeRror"></div>
-						    <form:errors cssStyle="color:red;"  path="designation"  ></form:errors>
+						     <label class="proLabel">Designation:</label>
+					    <form:select class="proInput form-control" path="designation" id="designation_id" >
+										<form:option value="" label="--Select designation --" />
+										<div class="FeRror"></div>
+										<form:options items="${alldesignation}" itemValue="designationDesc" itemLabel="designationDesc" />
+										<form:errors cssStyle="color:red;"  path="designation"  ></form:errors>
+								</form:select>	
 						  </div>
 						 </div>  
 						 </div>
@@ -259,7 +259,7 @@ function getEmpDistrict() {
 						 
 						 <div class="col-md-6">
 						  <div class="form-group">
-						    <label class="proLabel">Upload:</label>
+						    <label class="proLabel">Upload photo:</label>
 						   <form:input class="proInput form-control" type="file" path="file" id="uploadfile" />
 						   <div class="FeRror"></div>
 						   <form:errors cssStyle="color:red;"  path="file"  ></form:errors>
@@ -282,13 +282,12 @@ function getEmpDistrict() {
 				        
 				        
 				        <div class="text-center">
-				         <input type="button" id="userSubmit" value="Save"  class="btn btn-primary" >
+				         <input type="submit" id="userSubmit" value="Save"  class="btn btn-primary" >
 				        </div>
 									    
 						</form:form>
-							<p class="backToLogin">
-							<a href="${pageContext.request.contextPath}/login">Back to Login</a>
-						</p>
+			
+						
 						</div>
 						</div>
 						
@@ -296,7 +295,7 @@ function getEmpDistrict() {
 </div>
 </div>
 </section>
-<%@include file="footer.jsp" %>
+
 </div>
 
 </body>

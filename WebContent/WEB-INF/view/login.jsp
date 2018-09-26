@@ -5,15 +5,18 @@
 
 <head>
 	<title>Web Employee Tracker</title>
-		
+<script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
+<script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
+<script src="<c:url value='resources/js/loginValidation.js'/>"></script>
+<style>
+.skin-blue .main-header .logo{float: left; width: 100%; text-decoration: none;}
+</style>
+<body>		
 	</head>
 
-<body>
 
- <%@include file="header.jsp" %> 
-<script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
-  <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
-  <script src="<c:url value='resources/js/loginValidation.js'/>"></script>
+<%@include file="header.jsp"%> 
+
 
 <div class="container">
 <div class="col-md-6 col-md-offset-3">

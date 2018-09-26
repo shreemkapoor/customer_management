@@ -80,13 +80,13 @@ http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 		id="messageSource">
 		<property name="basename" value="messages" />
 	</bean>
-<!-- 	
+ 	
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*" />
-			<bean class="crud.operations.controller.LoggerInterceptor" />
+			<bean class="ems.interceptor.SessionInterceptor" />
 		</mvc:interceptor>
 
-	</mvc:interceptors> -->
+	</mvc:interceptors> 
 
 </beans>

@@ -1,6 +1,7 @@
 package ems.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -37,13 +38,8 @@ public class Employee {
 	@NotEmpty
 	@Size(min = 1, max = 50, message = "Should be atleast 4 characters")
 	public String lastName;
-
-	
-/*	  @Pattern(regexp= "^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$")
-*/	 
-	 @DateTimeFormat(pattern = "dd/mm/yyyy")
-	public Date dDOB;
-	public String DOB;
+    private Date dDOB;
+	private String DOB;
 	
 	@NotNull
 	@Length( max = 15,message="Contact number should be less than 15 digits")
@@ -74,29 +70,48 @@ public class Employee {
 	public Integer districtCode;
 
 
-	@NotEmpty
-	@Size(min=4,max=50,message="Should be atleast 4 characters")
+	@NotNull(message="Please select designation")
 	public String designation;
 
 	private Integer userType;
 	private String userTypeDesc;
 	private MultipartFile file;
 	private byte[] file1;
-	public Date enteredOn;
-	public String enteredBy;
-	public String activatedBy;
-	public String activatedClientIp;
-	public String activeStatus;
-	public Date deactivatedOn;
-	public String deactivatedBy;
-	public String deactivatedClientIp;
+	private Date enteredOn;
+	private String enteredBy;
+	private String activatedBy;
+	private String activatedClientIp;
+	private String activeStatus;
+	private Date deactivatedOn;
+	private String deactivatedBy;
+	private String deactivatedClientIp;
 	@NotNull(message = "please select role")
-	public Integer userRole;
-	public String userRoledesc;
-	public Date passwordUpdatedOn;
+	private Integer userRole;
+	private String userRoledesc;
+	private Date passwordUpdatedOn;
+	private List<ProfessionalDetails> proList;
+	private List<Education> eduList;
+	
+	
+
+	public List<ProfessionalDetails> getProList() {
+		return proList;
+	}
+
+	public void setProList(List<ProfessionalDetails> proList) {
+		this.proList = proList;
+	}
+
+	public List<Education> getEduList() {
+		return eduList;
+	}
+
+	public void setEduList(List<Education> eduList) {
+		this.eduList = eduList;
+	}
 
 	public Date getdDOB() {
-		return dDOB;
+		return this.dDOB;
 	}
 
 	public void setdDOB(Date dDOB) {

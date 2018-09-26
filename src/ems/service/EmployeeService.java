@@ -3,9 +3,11 @@ package ems.service;
 import java.util.List;
 
 import ems.entity.AccessUrl;
+import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
 import ems.entity.UserRole;
@@ -43,6 +45,20 @@ public interface EmployeeService {
 	public List<SubUrl> getsubUrlByUrl(int getsubUrlByUrl);
 
 	public int createRole(UserRole role);
+
+	public int updateRole(UserRole role);
+
+	public int deleteRole(String roleId);
+
+	public List<Designation> getDesignationList();
+
+	public int createDesignation(Designation designation);
+
+	public int updateDesignation(Designation designation);
+
+	public int deleteDesignation(String designationId);
+
+	public int professionalDetails(Employee profdet);
 
 	
 }

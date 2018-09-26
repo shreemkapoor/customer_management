@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import ems.entity.AccessUrl;
+import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
@@ -56,14 +57,14 @@ public class EmployeeController {
             {
                 if ("JSESSIONID".equalsIgnoreCase(cook.getName()))
                 {
-               	 System.out.println("JSESSIONID  " +cook.getName());
+               	 //System.out.println("JSESSIONID  " +cook.getName());
                	 clientcookiesvalu = cook.getValue();
-               	 System.out.println("clientcookiesvalu  " +clientcookiesvalu);
+               	 //System.out.println("clientcookiesvalu  " +clientcookiesvalu);
                     break;
                 }
             }
         }
-        System.out.println("session.getId  " +session.getId()); 
+       // System.out.println("session.getId  " +session.getId()); 
 if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 {
 	return "redirect:/login";
@@ -83,7 +84,7 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 	}
 	
 	@RequestMapping("/registerNewForm")
-	public String registerForm(Model model) {
+	public String registerForm(/*@ModelAttribute("employee") Employee thEmployee,*/Model model) {
 		Employee theEmployee = new Employee();
 		model.addAttribute("employee", theEmployee);
 		/*Get all states in drop down*/
@@ -95,6 +96,8 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		model.addAttribute("allroles", roleList);
 		List<Gender> genderList=employeeService.getGenderList();
 		model.addAttribute("allgender", genderList);
+		List<Designation> designationList=employeeService.getDesignationList();
+		model.addAttribute("alldesignation", designationList);
 		return "register";
 	}
 	
@@ -111,12 +114,15 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		model.addAttribute("allroles", roleList);
 		List<Gender> genderList=employeeService.getGenderList();
 		model.addAttribute("allgender", genderList);
+		List<Designation> designationList=employeeService.getDesignationList();
+		model.addAttribute("alldesignation", designationList);
 	//	employeeService.updateEmployee(theEmployee);
 		return "updateUser";
 	}
 	
 	@RequestMapping(value="/updateEmployee", method=RequestMethod.POST)
 	public String updateEmployeeSave( @ModelAttribute("employee") Employee theEmployee, BindingResult bindingResult,@RequestParam(value="file", required=false) MultipartFile mfile, Model model,HttpSession session) {
+		System.out.println("^^^^^^^^^^^^^^");
 		if(bindingResult.hasErrors()) {
 			System.out.println("tttttt "+bindingResult.getFieldErrors());
 			model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -128,8 +134,22 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 			model.addAttribute("allroles", roleList);
 			List<Gender> genderList=employeeService.getGenderList();
 			model.addAttribute("allgender", genderList);
+			List<Designation> designationList=employeeService.getDesignationList();
+			model.addAttribute("alldesignation", designationList);
 			return "updateUser";
 		}
+		
+		
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    Date date=new Date();
+	    System.out.println(theEmployee.getDOB());
+        try {
+             date = formatter.parse(theEmployee.getDOB());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        theEmployee.setdDOB(date);
 	int i=	employeeService.updateEmployee(theEmployee);
 	System.out.println(theEmployee.getEmailId()+theEmployee.getDesignation());
 		if(i>0) {
@@ -139,6 +159,7 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 	}
 	@RequestMapping(value="/createUser", method=RequestMethod.POST)
 	public String createNewUser(@Valid @ModelAttribute("employee") Employee theEmployee, BindingResult bindingResult,@RequestParam(value="file", required=false) MultipartFile mfile, Model model,HttpSession session) throws IOException {
+		System.out.println("in create user");
 		if(bindingResult.hasErrors()) {
 			System.out.println("gzbhc   "+bindingResult.getFieldErrors());
 			model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -146,13 +167,11 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		}
 		
 		Employee empsession=(Employee) session.getAttribute("empsession");
-	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	    Date date=new Date();
 	    System.out.println(theEmployee.getDOB());
         try {
              date = formatter.parse(theEmployee.getDOB());
-            System.out.println(date);
-            System.out.println(formatter.format(date));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -194,9 +213,116 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 	public String listEmployees(Model model, HttpSession session) {
 	//	Employee emp=(Employee)session.getAttribute("empsession");
 		List<Employee> emplist = employeeService.getEmployees();
-		System.out.println(emplist.size());
 		model.addAttribute("employees", emplist);
 		return "employeeList";
 	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Employee> delete(@RequestParam("emailId") String emailId, Model model, HttpSession session){
+		int i= employeeService.deleteEmployee(emailId);
+		 List<Employee> empList=new ArrayList<>();
+		
+		 if(i>0) {
+			 empList = employeeService.getEmployees();
+				model.addAttribute("employees", empList);
+			 return empList;
+		 }
+		 return empList;	 
+	}	
+	@RequestMapping(value="/createRole", method=RequestMethod.GET)
+	public String createRoleGET(HttpSession session, Model model  ) {
+		model.addAttribute("role", new UserRole());
+		List<UserRole> roleList = new ArrayList<>();
+		roleList=employeeService.getUserRoleList();
+	
+		model.addAttribute("roles", roleList);
+		return "createRole";
+	}
+	@RequestMapping(value="/createRole1", method=RequestMethod.POST)
+	public String createRole(@ModelAttribute("role") UserRole role,HttpSession session, Model model  ) {
+		Employee empSession = (Employee) session.getAttribute("empsession");
+				role.setActiveStatus("Y");
+		role.setClientIp(session.getAttribute("ipAddress").toString());
+		role.setEnteredBy(empSession.getUserId());
+		int i=0;
+		if(role.getRoleId()==0) {
+		i = employeeService.createRole(role);
+		}
+		else {
+			i =	employeeService.updateRole(role);
+			return "redirect:/createRole";
+		}
+		List<UserRole> roleList = new ArrayList<>();
+		if(i>0) {
+			
+			roleList=employeeService.getUserRoleList();
+			model.addAttribute("roles", roleList);
+			return "createRole";
+		}
+		return "createRole";
+	}
+	
+	@RequestMapping(value="/deleteRole",method=RequestMethod.POST)
+	@ResponseBody
+	public List<UserRole> deleteRole(@RequestParam("roleId") String roleId, Model model, HttpSession session){
+		int i= employeeService.deleteRole(roleId);
+		 List<UserRole> roleList=new ArrayList<>();
+		
+		 if(i>0) {
+			 roleList = employeeService.getUserRoleList();
+				model.addAttribute("role", roleList);
+				 System.out.println(roleList);
+				return roleList;
+		 }
+		 return roleList;	 
+	}
+	
+	@RequestMapping(value="/createDesignation", method=RequestMethod.GET)
+	public String createDesignationGET(HttpSession session, Model model  ) {
+		model.addAttribute("designation", new Designation());
+		List<Designation> designationList = new ArrayList<>();
+		designationList=employeeService.getDesignationList();
+	
+		model.addAttribute("designationss", designationList);
+		return "createDesignation";
 }
-
+	@RequestMapping(value="/createDesignation", method=RequestMethod.POST)
+	public String createDesignation(@ModelAttribute("designation") Designation designation,HttpSession session, Model model  ) {
+		Employee empSession = (Employee) session.getAttribute("empsession");
+		designation.setActiveStatus("Y");
+		designation.setClientIp(session.getAttribute("ipAddress").toString());
+		designation.setEnteredBy(empSession.getUserId());
+		int i=0;
+		if(designation.getDesignationId()==0) {
+		i = employeeService.createDesignation(designation);
+		}
+		else {
+			i =	employeeService.updateDesignation(designation);
+			return "redirect:/createDesignation";
+		}
+		List<Designation> designationList = new ArrayList<>();
+		if(i>0) {
+			
+			designationList=employeeService.getDesignationList();
+			model.addAttribute("designationss", designationList);
+			return "createDesignation";
+		}
+		return "createDesignation";
+	}
+	
+	@RequestMapping(value="/deleteDesignation",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Designation> deleteDesignation(@RequestParam("designationId") String designationId, Model model, HttpSession session){
+		int i= employeeService.deleteDesignation(designationId);
+		 List<Designation> designationList=new ArrayList<>();
+		
+		 if(i>0) {
+			 designationList = employeeService.getDesignationList();
+				model.addAttribute("designation", designationList);
+				 System.out.println(designationList);
+				return designationList;
+		 }
+		 return designationList;	 
+	}
+}

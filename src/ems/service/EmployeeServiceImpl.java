@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import ems.dao.EmployeeDao;
 import ems.entity.AccessUrl;
+import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
 import ems.entity.UserRole;
@@ -100,6 +102,42 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int createRole(UserRole role) {
 		return employeeDao.createRole(role);
+	}
+
+	@Override
+	public int updateRole(UserRole role) {
+		return employeeDao.updateRole(role);
+	}
+
+	@Override
+	public int deleteRole(String roleId) {
+		return employeeDao.deleteRole(roleId);
+	}
+
+	@Override
+	public List<Designation> getDesignationList() {
+		return employeeDao.getDesignationList();
+	}
+
+	@Override
+	public int createDesignation(Designation designation) {
+		// TODO Auto-generated method stub
+		return employeeDao.createDesignation(designation);
+	}
+
+	@Override
+	public int updateDesignation(Designation designation) {
+		return employeeDao.updateDesignation(designation);
+	}
+
+	@Override
+	public int deleteDesignation(String designationId) {
+		return employeeDao.deleteDesignation(designationId);
+	}
+
+	@Override
+	public int professionalDetails(Employee profdet) {
+		return employeeDao.professionalDetails(profdet);
 	}
 
 	

@@ -4,23 +4,16 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
 <head>
-	<title>Custom Login Page</title>
+	<title>Web Customer Tracker</title>
 		
 		
 	</head>
 
 <body>
 
- <%@include file="header.jsp" %> 
+<%--  <%@include file="header.jsp" %> 
   <%@include file="side-layout.jsp" %> 
-
-
-		</div>
-</div>		
-  </div>
-</div>
-</div>
-
+ --%>
 </body>
 
 </html>

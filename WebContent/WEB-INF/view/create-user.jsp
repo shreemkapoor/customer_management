@@ -13,8 +13,8 @@
  </head>
 
 <body>
-<%@include file="header.jsp" %>
-<%@include file="side-layout.jsp" %>
+<%-- <%@include file="header.jsp" %>
+<%@include file="side-layout.jsp" %> --%>
  <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/jquery.validate.js'/>"></script>
   <script src="<c:url value='/resources/js/jquery-validation-1.15.1/dist/additional-methods.js'/>"></script>
   <script src="<c:url value='resources/js/CreateUserValidation.js'/>"></script>
@@ -58,7 +58,7 @@ function getEmpDistrict() {
 			for (var i = 0; i < len; i++) {
 				 
 				html += '<option value="' + data[i].districtCode + '" label="'
-				+ data[i].districtDesc + '"></option>';
+				+ data[i].districtDesc + '">'+ data[i].districtDesc+'</option>';
 			}
 		
 			$('#districtCode_id').html("");
@@ -203,16 +203,20 @@ function getEmpDistrict() {
 						  </div>
 						 </div>  
 						 
-						 <div class="col-md-6">
+						  <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">Designation:</label>
-						    <form:input class="proInput form-control" path="designation" />
-						    <form:errors cssStyle="color:red;"  path="designation"  ></form:errors>
+					    <form:select class="proInput form-control" path="designation" id="designation_id" >
+										<form:option value="" label="--Select designation --" />
+										<div class="FeRror"></div>
+										<form:options items="${alldesignation}" itemValue="designationId" itemLabel="designationDesc" />
+										<form:errors cssStyle="color:red;"  path="designation"  ></form:errors>
+								</form:select>	
 						  </div>
 						 </div>  
 						 </div>
 						 
-						 <div class="form-inline">
+						 <div class="form-inline"> 
 						  <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">User Type:</label>
@@ -227,7 +231,7 @@ function getEmpDistrict() {
 						 
 						 <div class="col-md-6">
 						  <div class="form-group">
-						    <label class="proLabel">Upload:</label>
+						    <label class="proLabel">Upload photo:</label>
 						   <form:input class="proInput form-control" type="file" path="file" id="uploadfile" />
 						   <div class="FeRror"></div>
 						   <form:errors cssStyle="color:red;"  path="file"  ></form:errors>
@@ -265,7 +269,7 @@ function getEmpDistrict() {
 </div>
 </section>
 </div>
-<%@include file="footer.jsp" %>
+<%-- <%@include file="footer.jsp" %> --%>
 </body>
 
 </html>

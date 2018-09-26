@@ -25,3 +25,9 @@ a{text-decoration: none;}
 }
 .employee-list{margin-top: 50px;}
 .content-wrapper{background: none;}
+.main-footer{padding: 10px;}
+.addmore{font-size: 12px; margin-bottom: 15px;}
+.heading1{float: left; width: 100%; background: #8c91a0; padding:5px 10px; margin: 0 0 15px 0;}
+.heading1 h3{font-size: 17px; line-height: 20px; color: #fff; margin: 0px;}
+.heading2 h2{font-size: 17px; line-height: 20px; color: #fff; margin: 0px;}
+.heading2{float: left; width: 100%; background: #8c91a0; padding:5px 10px; margin: 0 0 15px 0;}

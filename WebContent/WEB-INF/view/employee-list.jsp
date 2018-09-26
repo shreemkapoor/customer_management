@@ -5,13 +5,19 @@
 <html>
 
 <head>
+<link rel="stylesheet"
+	href="<c:url value='/resources/css/jquery.dataTables.min.css'/>">
+	
+<script src="<c:url value='/resources/js/jquery.dataTables.min.js'/>"></script>
 </head>
 
 <body>
-<%@include file="header.jsp" %>
-<%@include file="side-layout.jsp" %>
+
 
 <script type="text/javascript">
+$( document ).ready(function() {
+	$('#employeeTable').DataTable();
+});
 function deleteUser(emailId){
 	
 	$.ajax({
@@ -51,13 +57,14 @@ function deleteUser(emailId){
 				</div>
 
 				<div style="padding-top: 30px" class="panel-body">
-	<table class="table table-bordered table-responsive">
+	<table id="employeeTable" class="table table-bordered table-responsive">
 	<thead>
 		<tr>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Designation</th>
-			<th colspan="2" style="text-align:center;">Action</th>
+			<th>Update</th>
+			<th>Delete</th>
 
 		</tr>
 </thead>
@@ -87,6 +94,6 @@ function deleteUser(emailId){
 </div>
 </div>
 </div>
-<%@include file="footer.jsp" %>
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 package ems.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,14 +16,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import ems.entity.AccessUrl;
+import ems.entity.Designation;
 import ems.entity.District;
+import ems.entity.Education;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.ProfessionalDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
 import ems.entity.UserRole;
 import ems.entity.UserType;
 import ems.mapper.AccessUrlMapper;
+import ems.mapper.DesignationMapper;
 import ems.mapper.DistrictMapper;
 import ems.mapper.EmployeeMapper;
 import ems.mapper.GenderMapper;
@@ -30,7 +35,7 @@ import ems.mapper.StateMapper;
 import ems.mapper.SubUrlMapper;
 import ems.mapper.UserRoleMapper;
 import ems.mapper.UserTypeMapper;
-
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
 
@@ -258,6 +263,98 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return 0;
 	}
 
-
-	 
+	@Override
+	public int updateRole(UserRole role) {
+		int i = jdbcTemplate.update("update mst_role set role_desc=? where role_id=?" , new Object[] 
+				{role.getRoleDesc(), role.getRoleId()} );
+		return i;
 	}
+
+	@Override
+	public int deleteRole(String roleId) {
+		int i=0;
+		try {
+			i=jdbcTemplate.update("delete from mst_role where role_id=?", new Object[] {Integer.parseInt(roleId)});
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public List<Designation> getDesignationList() {
+		List<Designation> designationList = new ArrayList<Designation>();
+		try {
+			designationList= jdbcTemplate.query("select designation_id,designation_desc from mst_designation", new DesignationMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return designationList;
+	}
+
+	@Override
+	public int createDesignation(Designation designation) {
+		try {
+			int i = jdbcTemplate.update("insert into mst_designation(designation_desc,active_status,entered_by,entered_on,client_ip)"
+					+ "values (?,?,?,now(),?)" , new Object[] {designation.getDesignationDesc(),designation.getActiveStatus(),designation.getEnteredBy(),
+							designation.getClientIp()});
+			return i;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
+	}
+
+	@Override
+	public int updateDesignation(Designation designation) {
+		int i = jdbcTemplate.update("update mst_designation set designation_desc=? where designation_id=?" , new Object[] 
+				{designation.getDesignationDesc(), designation.getDesignationId()} );
+		return i;
+	}
+
+	@Override
+	public int deleteDesignation(String designationId) {
+		int i=0;
+		try {
+			i=jdbcTemplate.update("delete from mst_designation where designation_id=?", new Object[] {Integer.parseInt(designationId)});
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	@Override
+	public int professionalDetails(Employee profdet) {
+		int i[]= {0};
+	
+		try {
+			i=jdbcTemplate.batchUpdate("insert into mst_education (education,course,university,start_year,end_year,"
+					+ "percent_scored,emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
+			   public void setValues(PreparedStatement ps, int i)
+			     throws SQLException {
+				   Education edu = profdet.getEduList().get(i);
+			    ps.setString(1, edu.getEducation());
+			    ps.setString(2, edu.getCourse());
+			    ps.setString(3, edu.getUniversity());
+			    ps.setString(4, edu.getSTARTDATE());
+			    ps.setString(5, edu.getENDDATE());
+			    ps.setString(6, edu.getPercentage());
+			    ps.setString(7, profdet.getEmailId());
+			    ps.setString(8, profdet.getEnteredBy());
+			   }
+
+			   public int getBatchSize() {
+			    return profdet.getEduList().size();
+			   }
+			  });
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	if(i[0]>0) {
+		return 1;
+	}
+	return 0;
+	}
+}
