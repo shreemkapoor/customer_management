@@ -5,28 +5,73 @@
 	<section class="content">
 
 		<!-- Info boxes -->
-		<div class="row">
+		
 <script type="text/javascript">
+
+	function showRoleTable(){
+
+		var roleid=$("#roleid").val();
+		$.ajax({
+			
+		
+			url:"getUrlByRole",
+			data :{"id":roleid},
+			type:"post",
+			success:function(data){
+
+				var html = '';
+				
+			
+				var len = data.length;
+			if(len>0){
+				for (var i = 0; i < len; i++) {
+					 
+					html += "<tr><td>"+data[i].urlId+"</td><td>"+data[i].urlDesc+"</td>" +
+							"<td>";
+							for(var j=0;j<data[i].subList.length;j++){
+								if(data[i].subList.length==0){
+									html+="NA";
+								}else{
+								html+=data[i].subList[j].subUrlDesc+"<br>";
+								}
+							}
+							
+							html+="</td><td><button><i class='fa fa-trash btn'></i></button></td></tr>";
+							}
+			
+				$('#ctbody').html("");
+				$('#ctbody').html(html); 
+				$('#urlroletable').show();
+			}else{
+				$('#urlroletable').hide();
+			}
+			},error:function(e){
+				
+			}
+			
+
+	});
+		
+}
+
 
 </script>
 
 			<form action="#" method="get">
+			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
 						<div class="col-md-5">
 
 							<label for="sel1" class="proLabel">Employee Role:</label> 
-							<select	class="proInput form-control" >
+							<select onchange="showRoleTable();"	class="proInput form-control" id="roleid">
 								<option value=""  >--Select Role --</option>
 								<c:forEach items="${allroles}" var="x">
 									<option value="${x.roleId}" >${x.roleDesc}</option>
 								</c:forEach>
 							</select>
-
-
 						</div>
 					</div>
-
 				</div>
 
 				<div class="col-md-12">
@@ -50,8 +95,8 @@
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>URL</th>
-											<th>URL Description</th>
+											<th>SUB URL</th>
+											<th>SUB URL Description</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -67,13 +112,43 @@
 					</div>
 
 				</div>
+								
+</div>
+			<div class="col-md-10 col-md-offset-1" id="urlroletable" style="display: none;">	
+				<div class="panel panel-primary">
 
-			</form>
+				<div class="panel-heading">
+				
+					<div class="panel-title">Designation list</div>
+				</div>
 
+				<div style="padding-top: 30px" class="panel-body">
+				
+					<table id="designationTable"
+						class="table table-bordered table-responsive">
+						
+						<thead>
+						
+							<tr>
+								<th>Role</th>
+								<th>URL</th>
+								<th>SUB URL</th>
+								<th>Action</th>
 
-		</div>
+							</tr>
+						</thead>
+						<!-- loop over and print our employees -->
+						<tbody id="ctbody">
+						
+						</tbody>
 
-
+					</table>
+					
+				</div>
+				</div>
+			</div>
+</form>
+			
 	</section>
 </div>
 
