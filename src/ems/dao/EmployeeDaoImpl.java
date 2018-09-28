@@ -149,7 +149,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<SubUrl> getsubUrl(int urlId, int userRole) {
 		List<SubUrl> url = new ArrayList<SubUrl>();
 		try {
-		url= jdbcTemplate.query("select * from mst_sub_url where url_id=? and role_id=?",new Object[] {urlId,userRole}, new SubUrlMapper());
+		url= jdbcTemplate.query("select * from mst_sub_url where url_id=? and  ?  = ANY(role_id)",new Object[] {urlId,userRole}, new SubUrlMapper());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -348,6 +348,30 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 			   public int getBatchSize() {
 			    return profdet.getEduList().size();
+			   }
+			  });
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			i=jdbcTemplate.batchUpdate("insert into mst_professional (company_name,designation,start_date,end_date,experience_summary,"
+					+ "emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
+			   public void setValues(PreparedStatement ps, int i)
+			     throws SQLException {
+				   ProfessionalDetails edu = profdet.getProList().get(i);
+			    ps.setString(1, edu.getCompanyName());
+			    ps.setString(2, edu.getDesignation());
+			    ps.setString(3, edu.getSTARTDATE());
+			    ps.setString(4, edu.getENDDATE());
+			    ps.setString(5, edu.getExperienceSummary());
+			    ps.setString(6, profdet.getEmailId());
+			    ps.setString(7, profdet.getEnteredBy());
+			   }
+
+			   public int getBatchSize() {
+			    return profdet.getProList().size();
 			   }
 			  });
 		
