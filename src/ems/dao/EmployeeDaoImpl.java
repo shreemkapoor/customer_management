@@ -107,7 +107,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public List<District> getEmpDistrictList(State stateCode) {
-		List<District> districtList = new ArrayList();
+		List<District> districtList = new ArrayList<District>();
 		try {
 			districtList = jdbcTemplate.query
 						("select district_desc,district_code from mst_district where state_code=? ",  new Object[] {Integer.parseInt(stateCode.getStateCode().trim())}, new DistrictMapper() );
@@ -383,11 +383,40 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 	return 0;
 	}
+	
+
 	@Override
-	public int saveMinistry(Ministry mini) {
+	public int insertEmpUrl(String roleid, String urlid, String subUrlid) {
+		int i=0;
+		try { 
+			i=jdbcTemplate.update("update mst_url_access set role_id= role_id ||'{"+Integer.parseInt(roleid.trim())+"}' where url_id=?", new Object[] {Integer.parseInt(urlid.trim())});
+			if(i>0) {
+				i=jdbcTemplate.update("update mst_sub_url set role_id= role_id ||'{"+Integer.parseInt(roleid.trim())+"}' where sub_url_id=?", new Object[] {Integer.parseInt(subUrlid.trim())});
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		} 
+		return i;
+	}
+
+	@Override
+	public List<Ministry> getMinistryList() {
+		List<Ministry> ministryList = new ArrayList<Ministry>();
 		try {
-			int i = jdbcTemplate.update("insert into mst_ministry(ministry_dsc,active_status,entered_by,entered_on,client_ip)"
-					+ "values (?,?,?,now(),?)" , new Object[] {mini.getMinistryName(),mini.getActiveStatus(),mini.getEnteredBy(),mini.getClientIp()});
+			ministryList= jdbcTemplate.query("select * from mst_ministry", new MinistryMapper());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ministryList;
+	}
+
+	@Override
+	public int createMinistry(Ministry ministry) {
+		try {
+			int i = jdbcTemplate.update("insert into mst_ministry(ministry_desc,active_status,entered_by,entered_on,client_ip)"
+					+ "values (?,?,?,now(),?)" , new Object[] {ministry.getMinistryDesc(),ministry.getActiveStatus(),ministry.getEnteredBy(),
+							ministry.getClientIp()});
 			return i;
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -396,15 +425,21 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public List<Ministry> getMinistry() {
-		List<Ministry> accessUrl = new ArrayList<>();
+	public int updateMinistry(Ministry ministry) {
+		int i = jdbcTemplate.update("update mst_ministry set ministry_desc=? where ministry_id=?" , new Object[] 
+				{ministry.getMinistryDesc(), ministry.getMinistryId()} );
+		return i;
+	}
+
+	@Override
+	public int deleteMinistry(String ministryId) {
+		int i=0;
 		try {
-		accessUrl=jdbcTemplate.query("select * from mst_ministry ",new MinistryMapper());
-		}
-		catch(Exception e) {
+			i=jdbcTemplate.update("delete from mst_ministry where ministry_id=?", new Object[] {Integer.parseInt(ministryId)});
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return accessUrl;
+		return i;
 	}
 
 }

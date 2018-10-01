@@ -33,6 +33,10 @@ $( document ).ready(function() {
 						maxlength : 200,
 						minlength : 8
 					},
+					'captcha' : {
+						required : true,
+						maxlength : 6,
+					}, 
 				},
 			messages : {
 						'emailId' : {
@@ -45,7 +49,11 @@ $( document ).ready(function() {
 						alpanumericspecialchpass : "please enter valid password",
 						maxlength : "Password Should be less than or equal to 40 characters",
 						minlength : "Password Should be more than 8 or equal to 40 characters"
-					}
+					},
+					'captcha' : {
+						required : "This field is required",
+						maxlength : "Should be same as above image",
+					}, 
 				},
 			errorPlacement : function(error,element) {
 						error.addClass("help-block");
@@ -63,8 +71,19 @@ $( document ).ready(function() {
 				}
 		},
 	submitHandler : function(form) {
-	$("#loginForm").submit();
+		var pass = $("#userPwd").val();
+		var randomsalt=$("#randSalt").val();
+		var actualpass = new Hashes.SHA256().hex(pass);
+		var SHA256 = new Hashes.SHA256().hex((new Hashes.SHA256().hex(pass))+ randomsalt);
+		$("#userPwd").val(SHA256);		
+		form.submit();
 	}
 });
 
 });
+function refresh_captcha() {
+	/*$('#loginId').val("");
+	$("#userPwd").val("");*/
+	$('#captcha').val("");
+	$('#captcha_id').attr('src', 'captchaimg?' + Math.random());
+}

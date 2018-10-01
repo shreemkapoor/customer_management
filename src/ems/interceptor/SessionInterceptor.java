@@ -18,7 +18,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String uri = request.getRequestURI();
-		 if(!uri.endsWith("/") && !uri.endsWith("/login") && !uri.endsWith("/checkUser"))
+		 if(!uri.endsWith("/") && !uri.endsWith("/login") && !uri.endsWith("/checkUser") && !uri.endsWith("/captchaimg"))
 			 
 		    {
 			  

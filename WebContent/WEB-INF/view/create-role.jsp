@@ -101,7 +101,7 @@ function deleteUser(roleId){
 			}else{ 	
 	 var html="";
 			for (var i= 0; i< data.length; i++) {
-				html+="<tr><td>"+data[i].roleId+"</td><td>"+data[i].roleDesc+"</td><td><button onclick='updateRole("+data[i].roleDesc+","+data[i].roleId+");'>Update</button></td><td><button onclick='deleteUser("+data[i].roleId+");'>Delete</button></td></tr>";
+				html+="<tr><td>"+data[i].roleId+"</td><td>"+data[i].roleDesc+"</td><td><button onclick='updateRole("+data[i].roleDesc+","+data[i].roleId+");'><i class='fa fa-edit btn'></i></button></td><td><button onclick='deleteUser("+data[i].roleId+");'><i class='fa fa-trash btn'></i></button></td></tr>";
 			}
 			$("#ctbody").html(""); 
 		$("#ctbody").html(html); 
@@ -177,10 +177,10 @@ function deleteUser(roleId){
 			<tr>
 				<td>${tempEmployee.roleId}</td>
 				<td>${tempEmployee.roleDesc}</td>
-				 <td><button  onclick="updateRole('${tempEmployee.roleDesc}',${tempEmployee.roleId});">Update</button>	
+				 <td><button  onclick="updateRole('${tempEmployee.roleDesc}',${tempEmployee.roleId});"><i class="fa fa-edit btn"></i></button>	
 						</td>
 						<td>
-						<button  onclick="deleteUser(${tempEmployee.roleId});">Delete</button>	
+						<button  onclick="deleteUser(${tempEmployee.roleId});"><i class="fa fa-trash btn"></i></button>	
 					</td>
 			</tr>
 		</c:forEach>

@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class Ministry {
 
-	private String ministryName;
-	private String ministryCode;
+	private String ministryDesc;
 	private Integer ministryId;
 	private Date enteredOn;
 	private String clientIp;
@@ -36,23 +35,18 @@ public class Ministry {
 	public void setActiveStatus(String activeStatus) {
 		this.activeStatus = activeStatus;
 	}
-	public String getMinistryName() {
-		return ministryName;
-	}
-	public void setMinistryName(String ministryName) {
-		this.ministryName = ministryName;
-	}
-	public String getMinistryCode() {
-		return ministryCode;
-	}
-	public void setMinistryCode(String ministryCode) {
-		this.ministryCode = ministryCode;
-	}
+	
 	public Integer getMinistryId() {
 		return ministryId;
 	}
 	public void setMinistryId(Integer ministryId) {
 		this.ministryId = ministryId;
+	}
+	public String getMinistryDesc() {
+		return ministryDesc;
+	}
+	public void setMinistryDesc(String ministryDesc) {
+		this.ministryDesc = ministryDesc;
 	}
 	
 	

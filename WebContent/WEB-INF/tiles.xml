@@ -20,7 +20,7 @@
 	 <definition name="createRole" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/view/create-role.jsp" />
 	</definition>
-	 <definition name="createministry" extends="baseLayout">
+	 <definition name="createMinistry" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/view/createMinistry.jsp" />
 	</definition>
 	<definition name="createDesignation" extends="baseLayout">

@@ -76,11 +76,11 @@ function deleteUser(emailId){
 				<td>${tempEmployee.lastName}</td>
 				<td>${tempEmployee.designation}</td>
 				<td><form  action="updateEmployee" >
-						<input type="submit" value="update" />
+						<button type="submit"><i class="fa fa-edit btn"></i></button>
 						<input type="hidden" value="${tempEmployee.emailId}" name="emailId" />
 					</form></td><td>
 					
-						<button  onclick="deleteUser('${tempEmployee.emailId}' );">Delete</button>
+						<button  onclick="deleteUser('${tempEmployee.emailId}' );"><i class="fa fa-trash btn"></i></button>
 							
 							
 					</td>

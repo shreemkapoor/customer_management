@@ -1,4 +1,4 @@
-package ems.service;
+package ems.utils;
 
 import java.security.MessageDigest;
 

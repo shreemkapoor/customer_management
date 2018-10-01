@@ -28,12 +28,13 @@ import ems.entity.Designation;
 import ems.entity.District;
 import ems.entity.Employee;
 import ems.entity.Gender;
+import ems.entity.Ministry;
 import ems.entity.State;
 import ems.entity.SubUrl;
 import ems.entity.UserRole;
 import ems.entity.UserType;
 import ems.service.EmployeeService;
-import ems.service.PassEncryption;
+import ems.utils.PassEncryption;
 
 @Controller
 @SessionAttributes({"empsession","ipAddress","navUrl"}) 
@@ -325,4 +326,57 @@ if(!(clientcookiesvalu.equalsIgnoreCase(session.getId())))
 		 }
 		 return designationList;	 
 	}
+	
+	@RequestMapping(value="/createMinistry", method=RequestMethod.GET)
+	public String createMinistryGET(HttpSession session, Model model  ) {
+		model.addAttribute("ministry", new Ministry());
+		List<Ministry> ministryList = new ArrayList<>();
+		ministryList=employeeService.getMinistryList();
+	
+		model.addAttribute("ministries", ministryList);
+		return "createMinistry";
+}
+	@RequestMapping(value="/createMinistry", method=RequestMethod.POST)
+	public String createMinistry(@ModelAttribute("ministry") Ministry ministry,HttpSession session, Model model  ) {
+		Employee empSession = (Employee) session.getAttribute("empsession");
+		ministry.setActiveStatus("Y");
+		ministry.setClientIp(session.getAttribute("ipAddress").toString());
+		ministry.setEnteredBy(empSession.getUserId());
+		int i=0;
+		System.out.println(ministry.getMinistryDesc());
+		System.out.println(ministry.getMinistryId());
+
+		if(ministry.getMinistryId()==null) {
+		i = employeeService.createMinistry(ministry);
+		}
+		else {
+			i =	employeeService.updateMinistry(ministry);
+			return "redirect:/createMinistry";
+		}
+		List<Ministry> ministryList = new ArrayList<>();
+		if(i>0) {
+			
+			ministryList=employeeService.getMinistryList();
+			model.addAttribute("ministries", ministryList);
+			return "createMinistry";
+		}
+		return "createMinistry";
+	}
+	
+	@RequestMapping(value="/deleteMinistry",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Ministry> deleteMinistry(@RequestParam("ministryId") String ministryId, Model model, HttpSession session){
+		int i= employeeService.deleteMinistry(ministryId);
+		 List<Ministry> ministryList=new ArrayList<>();
+		
+		 if(i>0) {
+			 ministryList = employeeService.getMinistryList();
+				model.addAttribute("ministry", ministryList);
+				 System.out.println(ministryList);
+				return ministryList;
+		 }
+		 return ministryList;	 
+	}
+	
+
 }

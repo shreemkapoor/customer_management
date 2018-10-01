@@ -2,11 +2,11 @@ package ems.entity;
 
 public class SubUrl {
 
-	Integer roleId;
-	Integer urlId;
-	Integer subUrlId;
-	String subUrl;
-	String subUrlDesc;
+	private Integer roleId;
+	private	Integer urlId;
+	private	Integer subUrlId;
+	private String subUrl;
+	private String subUrlDesc;
 	public Integer getRoleId() {
 		return roleId;
 	}

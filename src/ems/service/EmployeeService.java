@@ -61,9 +61,14 @@ public interface EmployeeService {
 
 	public int professionalDetails(Employee profdet);
 
-	public int saveMinistry(Ministry mini);
+	public List<Ministry> getMinistryList();
 
-	public List<Ministry> getMinistry();
+	public int createMinistry(Ministry ministry);
 
-	
+	public int updateMinistry(Ministry ministry);
+
+	public int deleteMinistry(String ministryId);
+
+	public int insertEmpUrl(String roleid, String urlid, String subUrlid);
+
 }

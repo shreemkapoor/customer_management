@@ -19,9 +19,9 @@ public class MinistryMapper implements RowMapper<Ministry> {
 		m.setClientIp(rs.getString("client_ip"));
 		m.setEnteredBy(rs.getString("entered_by"));
 		m.setEnteredOn(rs.getDate("entered_on"));
-		m.setMinistryCode(rs.getString("ministry_code"));
-		m.setMinistryId(rs.getInt("srno"));
-		m.setMinistryName(rs.getString("ministry_dsc"));
+		
+		m.setMinistryDesc(rs.getString("ministry_desc"));
+		m.setMinistryId(rs.getInt("ministry_id"));
 		return m;
 		// TODO Auto-generated method stub
 

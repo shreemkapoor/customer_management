@@ -124,7 +124,7 @@ function showURLTable(){
 			for (var i = 0; i < len; i++) {
 				 
 				html += "<tr><td>"+data[i].subUrlId+"</td><td>"+data[i].subUrl+"</td>" +
-						"<td>"+data[i].subUrlDesc+"</td><td><button>add</button></td></tr>";
+						"<td>"+data[i].subUrlDesc+"</td><td><button onclick='addUrl("+$("#roleid").val()+","+urlid+","+data[i].subUrlId+");'>add</button></td></tr>";
 						}
 		
 			$('#urltable').html("");
@@ -138,9 +138,25 @@ function showURLTable(){
 		}
 		
 
+		
 });
 	
-
-	
 }
+function addUrl(roleid,urlid,subUrlid){
+	alert(roleid);
+	alert(urlid);
+	alert(subUrlid);
+	$.ajax({
+		url:"submitIds",
+		data :{"roleid":roleid,
+			"urlid":urlid,
+			"subUrlid":subUrlid},
+		type:"post",
+		success:function(data){
+			showURLTable();
+			alert("sent !!!");
+		}
+});
+}
+
 

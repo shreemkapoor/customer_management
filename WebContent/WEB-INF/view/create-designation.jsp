@@ -82,7 +82,7 @@ function deleteUser(designationId){
 			}else{ 	
 	 var html="";
 			for (var i= 0; i< data.length; i++) {
-				html+="<tr><td>"+data[i].designationId+"</td><td>"+data[i].designationDesc+"</td><td><button onclick='updateDesignation("+data[i].designationDesc+","+data[i].designationId+");'>Update</button></td><td><button onclick='deleteUser("+data[i].designationId+");'>Delete</button></td></tr>";
+				html+="<tr><td>"+data[i].designationId+"</td><td>"+data[i].designationDesc+"</td><td><button onclick='updateDesignation("+data[i].designationDesc+","+data[i].designationId+");'><i class='fa fa-edit btn'></i></button></td><td><button onclick='deleteUser("+data[i].designationId+");'><i class='fa fa-trash btn'></i></button></td></tr>";
 			}
 			$("#ctbody").html(""); 
 		$("#ctbody").html(html); 
@@ -132,7 +132,7 @@ function deleteUser(designationId){
 										</div>
 									</div>
 									<div class="text-left">
-										<input type="submit" value="Save" class="btn btn-primary">
+										<input type="submit" value="Save" class="btn btn-primary ">
 									</div>
 								</form:form>
 							</div>
@@ -167,10 +167,10 @@ function deleteUser(designationId){
 									<td>${tempEmployee.designationId}</td>
 									<td>${tempEmployee.designationDesc}</td>
 									<td><button
-											onclick="updateDesignation('${tempEmployee.designationDesc}',${tempEmployee.designationId});">Update</button>
+											onclick="updateDesignation('${tempEmployee.designationDesc}',${tempEmployee.designationId});"><i class="fa fa-edit btn"></i></button>
 									</td>
 									<td>
-										<button onclick="deleteUser(${tempEmployee.designationId});">Delete</button>
+										<button onclick="deleteUser(${tempEmployee.designationId});"><i class="fa fa-trash btn"></i></button>
 									</td>
 								</tr>
 							</c:forEach>

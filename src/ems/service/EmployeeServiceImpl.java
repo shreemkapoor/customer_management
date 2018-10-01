@@ -141,17 +141,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.professionalDetails(profdet);
 	}
 
-	
 	@Override
-	public int saveMinistry(Ministry mini) {
-		// TODO Auto-generated method stub
-		return employeeDao.saveMinistry(mini);
+	public List<Ministry> getMinistryList() {
+		return employeeDao.getMinistryList();
 	}
 
 	@Override
-	public List<Ministry> getMinistry() {
+	public int createMinistry(Ministry ministry) {
 		// TODO Auto-generated method stub
-		return employeeDao.getMinistry();
+		return employeeDao.createMinistry(ministry);
 	}
+
+	@Override
+	public int updateMinistry(Ministry ministry) {
+		return employeeDao.updateMinistry(ministry);
+	}
+
+	@Override
+	public int deleteMinistry(String ministryId) {
+		return employeeDao.deleteMinistry(ministryId);
+	}
+
+	@Override
+	public int insertEmpUrl(String roleid, String urlid, String subUrlid) {
+		return employeeDao.insertEmpUrl(roleid,urlid,subUrlid);
+	}
+
+	
 	
 }
