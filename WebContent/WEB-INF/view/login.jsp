@@ -32,13 +32,13 @@
 </head>
 <body>		
 	
-
+<div class="loginhead">
 <header class="main-header">
     <a href="#" class="logo">
       <span class="logo-lg">Web<b>Employee</b>Tracker</span>
     </a>
   </header>
-
+</div>
 
 <div class="container">
 <div class="col-md-6 col-md-offset-3">
@@ -73,11 +73,11 @@
 							<div class="form-group" style="margin-bottom: 0px">
 								<form:input path="captcha" cssClass="form-control"
 									placeholder="Enter Text Shown Above" htmlEscape="true"
-									maxlength="6" id="captcha" autocomplete="off" required="required" />
-									 <form:errors path="captcha" />
+									maxlength="6" id="captcha" autocomplete="off"  />
+									<%--  <form:errors path="captcha" /> --%>
 							</div>
 	
-	<div class="pull-left">
+	<div class="text-center">
 	  <button  id="submit" class="btn btn-primary" style="margin-top: 10px;">Login</button>
 	</div>
 	

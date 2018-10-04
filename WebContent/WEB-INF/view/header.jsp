@@ -22,8 +22,10 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+<div class="loginhead">
 <header class="main-header">
-    <a href="#" class="logo">
+    <a class="logo">
       <span class="logo-lg">Web<b>Employee</b>Tracker</span>
     </a>
   </header>
+  </div>

@@ -78,7 +78,7 @@ public class LoginController {
 		Employee databaseUser = employeeService.getUser(formuser.getEmailId());
 		System.out.println(databaseUser.getUserPassword());
 		System.out.println(formuser.getUserPassword());
-		if(formuser.getCaptcha().equals(session.getAttribute("captcha"))){
+		//if(formuser.getCaptcha().equals(session.getAttribute("captcha"))){
 		if (databaseUser != null
 				&& PassEncryption.encrypt(databaseUser.getUserPassword()+salt).equals(formuser.getUserPassword())) {
 
@@ -89,9 +89,9 @@ public class LoginController {
 			return "redirect:/home";
 		}
 		return "login";
-	}	
-		else
-			return "login";
+	//}	
+		/*else
+			return "login";*/
 	}
 	
 	 @RequestMapping(value = "/logout", method = RequestMethod.GET)

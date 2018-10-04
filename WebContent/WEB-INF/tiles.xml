@@ -50,6 +50,9 @@
 	<definition name="professionalDetails" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/view/profile-info/professional-details.jsp" />
 	</definition>
+	<definition name="createProject" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/view/project/create-project.jsp" />
+	</definition>
  
 
 </tiles-definitions>

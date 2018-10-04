@@ -332,7 +332,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		int i[]= {0};
 	
 		try {
-			i=jdbcTemplate.batchUpdate("insert into mst_education (education,course,university,start_year,end_year,"
+			i=jdbcTemplate.batchUpdate("insert into mst_emp_education (education,course,university,start_year,end_year,"
 					+ "percent_scored,emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
 			   public void setValues(PreparedStatement ps, int i)
 			     throws SQLException {
@@ -357,7 +357,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		
 		try {
-			i=jdbcTemplate.batchUpdate("insert into mst_professional (company_name,designation,start_date,end_date,experience_summary,"
+			i=jdbcTemplate.batchUpdate("insert into mst_emp_professional (company_name,designation,start_date,end_date,experience_summary,"
 					+ "emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
 			   public void setValues(PreparedStatement ps, int i)
 			     throws SQLException {
@@ -381,7 +381,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}
 		
 		try {
-			i=jdbcTemplate.batchUpdate("insert into mst_project (project,project_brief,start_date,end_date,tech_used,"
+			i=jdbcTemplate.batchUpdate("insert into mst_emp_project (project,project_brief,start_date,end_date,tech_used,"
 					+ "emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
 			   public void setValues(PreparedStatement ps, int i)
 			     throws SQLException {
