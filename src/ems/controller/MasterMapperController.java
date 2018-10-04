@@ -72,11 +72,11 @@ public class MasterMapperController {
 		
 		@RequestMapping(value="submitIds", method=RequestMethod.POST)
 		@ResponseBody
-		public int submitUrl(@RequestParam("roleid") String roleid,
+		public List<SubUrl> submitUrl(@RequestParam("roleid") String roleid,
 					@RequestParam("urlid") String urlid,@RequestParam("subUrlid") String subUrlid, Model model){
 			List<SubUrl> accList = new ArrayList<SubUrl>();
 			int i = employeeService.insertEmpUrl(roleid,urlid,subUrlid);
 			System.out.println(roleid);
-			return i;
+			return accList;
 		}
 }

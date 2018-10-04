@@ -32,16 +32,28 @@
   $( document ).ready(function() {
 	  
 	  let addvalue=1;
+	  let addvalues=1;
 	  
 	  $("#detailform")
 		.validate(
 			{
-				rules : {
-					
+				ClassRules : {
+					'name':{
+						required: true
+					},
+					'education' : {
+						required : true,
+						maxlength : 40,
 								},
-				messages : {
-					
-					
+								},
+				messages : {	
+					'companyName':{
+						required:"This field is required"
+					},
+					'education' : {
+						required : true,
+						maxlength : 40,
+								},
 				},
 				errorPlacement : function(error,
 					element) {
@@ -71,9 +83,9 @@
 				},
 				submitHandler : function(form) {
 
-
 if(addvalue>=0){
-							reorder_recovery(addvalue);	
+				reorder_professional(addvalue);
+				reorder_project(addvalues);
 }
 form.submit();
 				}
@@ -81,31 +93,40 @@ form.submit();
 
 		    $(".addCF").click(function(){
 		    	    	
-		    	$("#expTable").append('<tr><td><input type="text" name="proList['+addvalue+'].companyName" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].designation" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].STARTDATE" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].ENDDATE" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].experienceSummary" class="proInput1 form-control"/></td><td><button class="btn remCF"  id="dele'+addvalue+'" ><i class="fa fa-trash"></i></button></td></tr>');
+		    	$("#expTable").append('<tr><td><input type="text" name="proList['+addvalue+'].companyName" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].designation" class="proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].STARTDATE" class="datep proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].ENDDATE" class="datep proInput1 form-control"/></td><td><input type="text" name="proList['+addvalue+'].experienceSummary" class="proInput1 form-control"/></td><td><button class="btn remCF"  id="dele'+addvalue+'" ><i class="fa fa-trash"></i></button></td></tr>');
 		    	addvalue++;	
+		    	$(".datep").datepicker({
+			    	autoclose: true
+			    });
 		    });
 		    $("#expTable").on('click','.remCF',function(){
 		        $(this).parent().parent().remove();
 		      		       
 		  });
 		    
-		    $("#endDate1").datepicker({
-		    	autoclose: true
+		    $(".addPD").click(function(){
+    	    	
+		    	$("#projectTable").append('<tr><td><input type="text" name="projectList['+addvalues+'].projectName" class="proInput1 form-control"/></td><td><input type="text" name="projectList['+addvalues+'].projectBrief" class="proInput1 form-control"/></td><td><input type="text" name="projectList['+addvalues+'].STARTDATE"  class="datep proInput1 form-control"/></td><td><input type="text" name="projectList['+addvalues+'].ENDDATE" class="datep proInput1 form-control"/></td><td><input type="text" name="projectList['+addvalues+'].techUsed" class="proInput1 form-control"/></td><td><button class="btn remPD"  id="dele'+addvalues+'" ><i class="fa fa-trash"></i></button></td></tr>');
+		    	addvalues++;	
+		    	$(".datep").datepicker({
+			    	autoclose: true,
+			    	todayHighlight: true
+			    });
 		    });
-		    $("#endDate2").datepicker({
-		    	autoclose: true
-		    });
-		    $("#endDate3").datepicker({
-		    	autoclose: true
-		    });
-		    $("#endDate4").datepicker({
-		    	autoclose: true
-		    });
-  
+		    $("#projectTable").on('click','.remPD',function(){
+		        $(this).parent().parent().remove();
+		      		       
+		  });
+		    $(".datep").datepicker({
+		    	format: "dd.mm.yyyy",
+                showOnFocus:true,
+                autoclose: true,
+                todayHighlight:true
+	    });
   })  
  	 
 
-function reorder_recovery(k){
+function reorder_professional(k){
 	
 	var arr=new Array();		
 	var n=0;
@@ -131,9 +152,32 @@ function reorder_recovery(k){
 	
 }
   
+  function reorder_project(k){
+		
+		var arr=new Array();		
+		var n=0;
+		for(var i=0;i<k;i++){
+			
+			if($('[name="projectList['+i+'].projectName"]').val()!=undefined){
+				arr.push(i);
+				n++;
+			}
+		}
+		//alert("values are "+JSON.stringify(arr));	
+
+		for(var j=0;j<n;j++){
+			i=arr[j];
+			
+		$('[name="projectList['+i+'].projectName"]').attr('name',"projectList["+j+"].projectName");
+			$('[name="projectList['+i+'].projectBrief"]').attr('name',"projectList["+j+"].projectBrief");
+			$('[name="projectList['+i+'].STARTDATE"]').attr('name',"projectList["+j+"].STARTDATE");
+			$('[name="projectList['+i+'].ENDDATE"]').attr('name',"projectList["+j+"].ENDDATE");
+			$('[name="projectList['+i+'].techUsed"]').attr('name',"projectList["+j+"].techUsed");
+
+		}
+  }
   
   </script>
-  	
   
   <div class="content-wrapper" style="min-height: 990px;">
     
@@ -147,7 +191,7 @@ function reorder_recovery(k){
 				<div class="panel-heading"><h3 class="panel-title">Professional Details</h3></div>
 					<div class="panel-body">
 						<form:form  modelAttribute="profDetails"  method="POST" id="detailform"  action="professionalDetails1">
-						<div class="heading1"><h3>Experience Detail</h3></div>
+						<div class="heading1"><h3>Experience Details</h3></div>
 						
 						<table class="table">
 						<thead>
@@ -162,10 +206,10 @@ function reorder_recovery(k){
 						<tr>
 						<td><input type="text" name="proList[0].companyName" class="proInput1 form-control"/></td>
 						<td><input type="text" name="proList[0].designation" class="proInput1 form-control"/></td>
-						<td><input type="text" name="proList[0].STARTDATE" class="proInput1 form-control"/></td>
-						<td><input type="text" name="proList[0].ENDDATE" class="proInput1 form-control"/></td>
+						<td><input type="text" name="proList[0].STARTDATE"  class="datep proInput1 form-control"/></td>
+						<td><input type="text" name="proList[0].ENDDATE"  class="datep proInput1 form-control"/></td>
 						<td><input type="text" name="proList[0].experienceSummary" class="proInput1 form-control"/></td>
-						<td></td>
+
 						</tr>
 						</tbody>
 						
@@ -174,7 +218,32 @@ function reorder_recovery(k){
 						<div class="text-left">
 				         <input type="button"    value="ADD MORE+"  class="addCF btn btn-primary addmore" >
 				        </div>
-				        <div class="heading1"><h3>Education Detail</h3></div>
+				        <div class="heading1"><h3>Project Details</h3></div>
+				        	<table class="table">
+						<thead>
+						<tr><th>Project Name:</th>
+						<th>Project Brief:</th>
+						<th>Start Date: </th>
+						<th>End Date:</th>
+						<th>Technology Used:</th>
+						</tr>
+						</thead>
+						<tbody id="projectTable">
+						<tr>
+						<td><input type="text" name="projectList[0].projectName" class="proInput1 form-control"/></td>
+						<td><input type="text" name="projectList[0].projectBrief" class="proInput1 form-control"/></td>
+						<td><input type="text" name="projectList[0].STARTDATE" class="datep proInput1 form-control"/></td>
+						<td><input type="text" name="projectList[0].ENDDATE" class="datep proInput1 form-control"/></td>
+						<td><input type="text" name="projectList[0].techUsed" class="proInput1 form-control"/></td>
+
+						</tr>
+						</tbody>
+						 
+						</table>
+						<div class="text-left">
+				         <input type="button"    value="ADD MORE+"  class="addPD btn btn-primary addmore" >
+				        </div>
+				        <div class="heading1"><h3>Education Details</h3></div>
 				        
 				         <div class="heading2"><h2>10th</h2></div>
 				         
@@ -182,7 +251,7 @@ function reorder_recovery(k){
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">Course:</label>
-						    <input class="proInput form-control" name="eduList[0].course" />
+						    <input class="name proInput form-control" name="eduList[0].course" />
 						    
 						    <div class="FeRror"></div>
 						  </div>
@@ -202,9 +271,9 @@ function reorder_recovery(k){
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">End Date:</label>
-						    <input id="endDate1" class="proInput form-control" name="eduList[0].ENDDATE" />
+						    <input class="datep proInput form-control" name="eduList[0].ENDDATE" autocomplete="false" />
 						    <div class="FeRror"></div>
-						  	    <input type="hidden"  class="proInput form-control"value=" " name="eduList[0].STARTDATE" />
+						  	    <input type="hidden"  class="datep proInput form-control" value="" name="eduList[0].STARTDATE" />
 						  </div>
 						 </div>
 						 </div> 
@@ -245,7 +314,7 @@ function reorder_recovery(k){
 						  <div class="form-group">
 						    <label class="proLabel">End Date:</label>
 					
-						    <input class="proInput form-control" id="endDate2" name="eduList[1].ENDDATE" />
+						    <input class="datep proInput form-control" name="eduList[1].ENDDATE" />
 						    <div class="FeRror"></div>
 						   
 						  </div>
@@ -287,7 +356,7 @@ function reorder_recovery(k){
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">Start Date:</label>
-						    <input id="endDate3" class="proInput form-control" name="eduList[2].STARTDATE" />
+						    <input id="endDate3" class="datep proInput form-control" name="eduList[2].STARTDATE" />
 				
 						    <div class="FeRror"></div>
 						  </div>
@@ -296,7 +365,7 @@ function reorder_recovery(k){
 						 <div class="col-md-6">
 						  <div class="form-group">
 						    <label class="proLabel">End Date:</label>
-						    <input id="endDate4" class="proInput form-control" name="eduList[2].ENDDATE" />
+						    <input id="endDate4" class="datep proInput form-control" name="eduList[2].ENDDATE" />
 						    <div class="FeRror"></div>
 						    
 						  </div>
@@ -314,7 +383,8 @@ function reorder_recovery(k){
 						</div>
 						
 						 <div class="text-center">
-				         <button id="userSubmit"   class="btn btn-primary" >Save</button>
+						 <input type="submit"  class="btn btn-primary" value="Save">
+				         <!-- <button id="userSubmit"   class="btn btn-primary" >Save</button> -->
 				        </div>
 						</form:form>
 						</div></div></div></div></div></section></div>

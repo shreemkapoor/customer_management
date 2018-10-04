@@ -73,7 +73,7 @@
 							<div class="form-group" style="margin-bottom: 0px">
 								<form:input path="captcha" cssClass="form-control"
 									placeholder="Enter Text Shown Above" htmlEscape="true"
-									maxlength="6" id="captcha" autocomplete="off" />
+									maxlength="6" id="captcha" autocomplete="off" required="required" />
 									 <form:errors path="captcha" />
 							</div>
 	

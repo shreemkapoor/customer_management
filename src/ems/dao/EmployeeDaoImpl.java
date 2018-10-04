@@ -23,6 +23,7 @@ import ems.entity.Employee;
 import ems.entity.Gender;
 import ems.entity.Ministry;
 import ems.entity.ProfessionalDetails;
+import ems.entity.ProjectDetails;
 import ems.entity.State;
 import ems.entity.SubUrl;
 import ems.entity.UserRole;
@@ -123,7 +124,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<AccessUrl> getUrl(int userRole) {
 		List<AccessUrl> accessUrl = new ArrayList<>();
 		try {
-		accessUrl=jdbcTemplate.query("select * from mst_url_access where ?  = ANY(role_id)",new Object[] {userRole},new AccessUrlMapper());
+		accessUrl=jdbcTemplate.query("select * from mst_url_access where ?  = ANY(role_id) order by url_id",new Object[] {userRole},new AccessUrlMapper());
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -149,7 +150,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<SubUrl> getsubUrl(int urlId, int userRole) {
 		List<SubUrl> url = new ArrayList<SubUrl>();
 		try {
-		url= jdbcTemplate.query("select * from mst_sub_url where url_id=? and  ?  = ANY(role_id)",new Object[] {urlId,userRole}, new SubUrlMapper());
+		url= jdbcTemplate.query("select * from mst_sub_url where url_id=? and  ?  = ANY(role_id) order by sub_url_id",new Object[] {urlId,userRole}, new SubUrlMapper());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -378,6 +379,30 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			i=jdbcTemplate.batchUpdate("insert into mst_project (project,project_brief,start_date,end_date,tech_used,"
+					+ "emp_email_id,entered_by,entered_on)values(?,?,?,?,?,?,?,now())",new BatchPreparedStatementSetter() {
+			   public void setValues(PreparedStatement ps, int i)
+			     throws SQLException {
+				   ProjectDetails edu = profdet.getProjectList().get(i);
+			    ps.setString(1, edu.getProjectName());
+			    ps.setString(2, edu.getProjectBrief());
+			    ps.setString(3, edu.getSTARTDATE());
+			    ps.setString(4, edu.getENDDATE());
+			    ps.setString(5, edu.getTechUsed());
+			    ps.setString(6, profdet.getEmailId());
+			    ps.setString(7, profdet.getEnteredBy());
+			   }
+
+			   public int getBatchSize() {
+			    return profdet.getProjectList().size();
+			   }
+			  });
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	if(i[0]>0) {
 		return 1;
 	}
@@ -390,12 +415,17 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		int i=0;
 		try { 
 			i=jdbcTemplate.update("update mst_url_access set role_id= role_id ||'{"+Integer.parseInt(roleid.trim())+"}' where url_id=?", new Object[] {Integer.parseInt(urlid.trim())});
-			if(i>0) {
-				i=jdbcTemplate.update("update mst_sub_url set role_id= role_id ||'{"+Integer.parseInt(roleid.trim())+"}' where sub_url_id=?", new Object[] {Integer.parseInt(subUrlid.trim())});
-			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		} 
+try {
+	if(i>0) {
+		i=jdbcTemplate.update("update mst_sub_url set role_id= role_id ||'{"+Integer.parseInt(roleid.trim())+"}' where sub_url_id=?", new Object[] {Integer.parseInt(subUrlid.trim())});
+	}
+} catch (Exception e) {
+	e.printStackTrace();
+}
 		return i;
 	}
 

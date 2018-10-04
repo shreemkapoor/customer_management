@@ -54,7 +54,6 @@ public class LoginController {
 	@RequestMapping(value="/captchaimg")
 	public ResponseEntity<byte[]> testCaptcha(Model model, HttpSession session)throws IOException {
 	 	captchaimageobj=new CaptchaImgServiceImpl();
-	 	System.out.println("dfbfbbfd");
 	    final HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.IMAGE_JPEG);
 	    byte[] imgbytes=captchaimageobj.createBytes(); // returns image bytes for captcha generated in service class.

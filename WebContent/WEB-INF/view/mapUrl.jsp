@@ -25,8 +25,7 @@
 				var len = data.length;
 			if(len>0){
 				for (var i = 0; i < len; i++) {
-					 
-					html += "<tr><td>"+data[i].urlId+"</td><td>"+data[i].urlDesc+"</td>" +
+					html += "<tr><td>"+i+"</td><td>"+data[i].urlDesc+"</td>" +
 							"<td>";
 							for(var j=0;j<data[i].subList.length;j++){
 								if(data[i].subList.length==0){

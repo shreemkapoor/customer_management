@@ -1,4 +1,4 @@
-package ems.interceptor;
+/*package ems.interceptor;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +15,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().authenticated()
 		.and().formLogin().loginPage("/login")
 		.loginProcessingUrl("/checkUser").permitAll();
-		/*.and().logout().permitAll();*/
+		.and().logout().permitAll();
 	}
 
 }
+*/

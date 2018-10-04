@@ -101,8 +101,15 @@ public class Employee {
 	private Date passwordUpdatedOn;
 	private List<ProfessionalDetails> proList;
 	private List<Education> eduList;
-	
-	
+	private List<ProjectDetails> projectList;
+
+	public List<ProjectDetails> getProjectList() {
+		return projectList;
+	}
+
+	public void setProjectList(List<ProjectDetails> projectList) {
+		this.projectList = projectList;
+	}
 
 	public List<ProfessionalDetails> getProList() {
 		return proList;
